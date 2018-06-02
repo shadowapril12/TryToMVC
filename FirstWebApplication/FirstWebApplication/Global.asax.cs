@@ -5,6 +5,8 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using System.Data.Entity;
+using FirstWebApplication.Models;
 
 namespace FirstWebApplication
 {
@@ -12,6 +14,8 @@ namespace FirstWebApplication
     {
         protected void Application_Start()
         {
+            Database.SetInitializer(new PersonDbInitializer());
+
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);

@@ -1,31 +1,57 @@
-﻿@{
-    ViewBag.Title = "Home Page";
+﻿@model IEnumerable<FirstWebApplication.Models.Person>
+
+@{
+    Layout = null;
 }
 
-<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
-</div>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Главная</title>
+</head>
+<body>
+    
+    <div><a href="Home/About">О программе</a></a></div>
+    <div>Записи в телефонной книге:</div>
+    <table>
+        <tr>
+            <td>Имя</td>
+            <td>Номер телефона</td>
+        </tr>
 
-<div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
-        </p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
-    </div>
-</div>
+        <!--Для каждй записи из таблицы 'Persons' создается данная форма-->
+        @foreach (FirstWebApplication.Models.Person p in Model)
+         {
+            <!--При нажатии любой из кнопок в данной форме вызывается метод 'MyAction'-->
+            using (Html.BeginForm("MyAction", "Home", FormMethod.Post))
+            {
+                <tr>
+                    <!--Имя-->
+                    <td>@p.Name</td>
+
+                    <!--Номер телефона-->
+                    <td>@p.Number</td>
+                    <td><button name="action" value="edit">Редактировать</button></td>    
+
+                    <!--Кнопки удалить и редактировать-->
+                    <td><button name="action" value="delete">Удалить</button></td>
+
+                    <!--Скрытое поле с записью идентификатора-->
+                    <td><input type="hidden" name="Id" value=@p.Id /></td>
+                </tr>
+                
+            }
+             
+         }
+    </table>
+
+    <!--Форма для кнопки добавления и вызова метода 'AddForm'-->
+    @using (Html.BeginForm("AddForm", "Home", FormMethod.Post))
+     {
+        <input type="submit" value="Добавить"/>
+     }
+    
+</body>
+</html>
+
