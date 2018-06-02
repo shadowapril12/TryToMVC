@@ -1,0 +1,32 @@
+﻿@model FirstWebApplication.Models.Person
+
+<!--Подключение мастер страницы-->
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>AddForm</title>
+</head>
+<body>
+
+    <!--Форма добавление записи в базу данных вызывающаю по нажатию клавиши отправить - метод 'AddElement'-->
+    @using (Html.BeginForm("AddElement", "Home", FormMethod.Post))
+    {
+        //Использование Html - хелперов
+        @Html.LabelFor(model => model.Name, "Имя");
+        <br />
+        @Html.EditorFor(model => model.Name, "Имя");
+        <br />
+        @Html.LabelFor(model => model.Number, "Номер");
+        <br />
+        @Html.EditorFor(model => model.Number, "Номер");
+        <br />
+        <input type="submit" value="Отправить" />
+    }
+</body>
+</html>

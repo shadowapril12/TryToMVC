@@ -1,0 +1,34 @@
+﻿@model FirstWebApplication.Models.Person
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>EditForm</title>
+</head>
+<body>
+    <div>
+
+        <!--Форма с выводом информации о редактируемой записи. При нажатии кнопки 'Применить' запускается метод 'EditElement'-->
+        @using (Html.BeginForm("EditElement", "Home", FormMethod.Post))
+        {
+            @Html.HiddenFor(p => p.Id);
+
+            @Html.LabelFor(p => p.Name, "Введите имя");
+            <br />
+            @Html.EditorFor(p => p.Name);
+            <br />
+            @Html.LabelFor(p => p.Number, "Введите номер");
+            <br />
+            @Html.EditorFor(p => p.Number);
+            <br />
+            <input type="submit" value="Применить"/>
+        }
+    </div>
+</body>
+</html>
